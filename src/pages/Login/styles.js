@@ -45,6 +45,7 @@ export const Fields = styled.div`
         font-weight: 600;
         color: var(--primary);
         margin-bottom: 2px;
+        line-height: 18px;
     }
 
     .field input{
@@ -53,6 +54,7 @@ export const Fields = styled.div`
         border: 1px solid var(--secondary);
         box-sizing: border-box;
         padding: 10px 5px;
+        line-height: 24px;
     }
 
     .field button{
@@ -63,6 +65,7 @@ export const Fields = styled.div`
         width: 100%;
         padding: 10px 5px;
         border: 0;
+        line-height: 24px;
     }
 
     .field + .field{
