@@ -2,11 +2,13 @@ import React from 'react';
 
 import GlobalStyle from './styles/global';
 
+import Login from './pages/Login'
+
 function App() {
   return (
     <>
       <GlobalStyle/>
-      <h1>Hello world</h1>
+      <Login/>
     </>
   );
 }

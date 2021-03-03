@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
         min-height: 100%;
     }
     body{
-        background: #E5E5E5;
+        background: #FFFFFF;
         -webkit-font-smoothing: antialiased !important;
     }
  
