@@ -1,8 +1,17 @@
 import React from 'react'
+import { login } from '../../services/auth'
+import {useHistory} from 'react-router-dom';
 
 import {LoginContainer, LoginBox, Logo, Fields} from './styles'
 
 function Login(){
+    const history = useHistory();
+    
+    function entrar(){
+        login('token')
+        history.push('/home')
+    }
+
     return (
         <LoginContainer>
             <LoginBox>
@@ -20,7 +29,7 @@ function Login(){
                     </svg>
                 </Logo>
 
-                <form action="">
+                <form>
                     <Fields>
                         <div className="field">
                             <label htmlFor="email">E-mail</label>
@@ -31,7 +40,7 @@ function Login(){
                             <input type="senha" placeholder="Senha"/>
                         </div>
                         <div className="field">
-                            <button type="button">Entrar</button>
+                            <button type="button" onClick={entrar}>Entrar</button>
                         </div>
                     </Fields>
                 </form>

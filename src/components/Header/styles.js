@@ -6,10 +6,11 @@ export const HeaderContainer = styled.div`
     justify-content: space-between;
     padding: 24px 32px;
 
-    a{
+    p{
         font-style: normal;
         font-weight: 600;
         font-size: 14px;
         line-height: 24px;
+        cursor: pointer;
     }
 `;
