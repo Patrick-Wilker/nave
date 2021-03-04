@@ -1,29 +1,22 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { FaPen, FaTrash } from "react-icons/fa";
 
 import Header from '../../components/Header';
+import ModalExcluir from '../../components/ModalExcluir';
 
 import {HomeContainer, Cards} from './styles';
 
-import api from '../../services/api'
-
+import {ModalConfirmeProvider} from '../../context/ModalConfirmeContext'
+    
 function Home(){
-    const [data, setData] = useState({})
-    const [navers, setNavers] = useState([])
+    const [isOpenModalExcluir, setIsOpenModalExcluir] = useState(false)
 
-    useEffect(()=>{
-        async function loadDatas(){
-            const response = await api.get('e6afe4028c2a1e56e577/users/index')
-
-            setData(response.data)
-            setNavers(response.data.item[0].item)
-        }
-
-        loadDatas()
-    }, [])
+    function closeModalExcluir(){
+        setIsOpenModalExcluir(false)
+    }
 
     return(
-        <>
+        <ModalConfirmeProvider value={closeModalExcluir}>
             <Header/>
             <HomeContainer>
                 <header>
@@ -37,7 +30,7 @@ function Home(){
                         <p>Juliano Reis</p>
                         <span>Frontend Developer</span>
                         <div>
-                            <span className="remove"><FaTrash/></span>
+                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
                             <span className="edit"><FaPen/></span>
                         </div>
                     </li>
@@ -46,7 +39,7 @@ function Home(){
                         <p>Juliano Reis</p>
                         <span>Frontend Developer</span>
                         <div>
-                            <span className="remove"><FaTrash/></span>
+                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
                             <span className="edit"><FaPen/></span>
                         </div>
                     </li>
@@ -55,7 +48,7 @@ function Home(){
                         <p>Juliano Reis</p>
                         <span>Frontend Developer</span>
                         <div>
-                            <span className="remove"><FaTrash/></span>
+                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
                             <span className="edit"><FaPen/></span>
                         </div>
                     </li>
@@ -64,14 +57,15 @@ function Home(){
                         <p>Juliano Reis</p>
                         <span>Frontend Developer</span>
                         <div>
-                            <span className="remove"><FaTrash/></span>
+                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
                             <span className="edit"><FaPen/></span>
                         </div>
                     </li>
                 </Cards>
-
+                
             </HomeContainer>
-        </>
+            {isOpenModalExcluir && <ModalExcluir/>}
+        </ModalConfirmeProvider>
     )
 }
 
