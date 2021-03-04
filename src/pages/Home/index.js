@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { FaPen, FaTrash } from "react-icons/fa";
+import {Link} from 'react-router-dom';
 
 import Header from '../../components/Header';
 import ModalExcluir from '../../components/ModalExcluir';
@@ -21,7 +22,10 @@ function Home(){
             <HomeContainer>
                 <header>
                     <h1>Navers</h1>
-                    <button>Adicionar Naver</button>
+                    <Link to="/create">
+                        <button>Adicionar Naver</button>
+                    </Link>
+                    
                 </header>
 
                 <Cards>

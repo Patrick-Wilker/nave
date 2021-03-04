@@ -33,11 +33,11 @@ function Login(){
                     <Fields>
                         <div className="field">
                             <label htmlFor="email">E-mail</label>
-                            <input type="email" placeholder="E-mail"/>
+                            <input id="email "type="email" placeholder="E-mail"/>
                         </div>
                         <div className="field">
                             <label htmlFor="senha">Senha</label>
-                            <input type="senha" placeholder="Senha"/>
+                            <input id="senha" type="password" placeholder="Senha"/>
                         </div>
                         <div className="field">
                             <button type="button" onClick={entrar}>Entrar</button>
