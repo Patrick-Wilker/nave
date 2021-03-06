@@ -28,8 +28,8 @@ function Home(){
 
     const history = useHistory()
 
-    function edit() {
-        history.push('/edit')
+    function edit(id) {
+        history.push(`/edit/${id}`)
     }
 
     function openConfirme(id) {
@@ -59,7 +59,7 @@ function Home(){
                                     <span>{naver.job}</span>
                                     <div>
                                         <span className="remove" onClick={()=>{openConfirme(i)}}><FaTrash/></span>
-                                        <span className="edit" onClick={edit}><FaPen/></span>
+                                        <span className="edit" onClick={()=>{edit(i)}}><FaPen/></span>
                                     </div>
                                 </li>
                             )

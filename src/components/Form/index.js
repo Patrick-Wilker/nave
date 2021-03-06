@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
@@ -25,6 +25,25 @@ function Form(props){
     const [time, setTime] = useState(1)
     const [projects, setProjects] = useState('')
     const [url, setUrl] = useState('')
+
+    useEffect(()=>{
+        function edit(){
+            if(props.id){
+                for(let i = 0; i <= props.id; i++){
+                    if(String(i) === props.id){
+                        setName(navers[i].name)
+                        setJob(navers[i].job)
+                        setAge(navers[i].age)
+                        setTime(navers[i].time)
+                        setProjects(navers[i].projects)
+                        setUrl(navers[i].url)
+                    }
+                }
+            }
+        }
+
+        edit()
+    }, [props.id, navers])
 
     async function validation(event){
         event.preventDefault()
@@ -57,13 +76,23 @@ function Form(props){
         try {
             await schema.validate(validation, { abortEarly: false });
 
-            console.log(navers)
+            let uptadeNavers
 
-            const uptadeNavers = [
-                ...navers, validation
-            ]
+            if(props.id){
+                navers.splice(props.id, 1)
 
-            localStorage.setItem('navers', JSON.stringify(uptadeNavers));
+                uptadeNavers = [
+                    ...navers
+                ]
+                uptadeNavers.splice(props.id, 0, validation)
+
+            }else{
+                uptadeNavers = [
+                    ...navers, validation
+                ]
+            }
+
+            localStorage.setItem('navers', JSON.stringify(uptadeNavers))
 
             setName('')
             setJob('')
@@ -71,8 +100,6 @@ function Form(props){
             setTime(1)
             setProjects('')
             setUrl('')
-
-            console.log('entrou')
 
             open()
             updateDatas()
@@ -112,12 +139,12 @@ function Form(props){
                     </div>
                     <div className="field">
                         <label htmlFor="idade">Idade</label>
-                        <input type="text" id="idade" placeholder="Idade" 
+                        <input type="text" id="idade" placeholder="Idade" value={props.id !== undefined && props.id != null ? age : ''}
                             onChange={(e) => setAge(e.target.value)}/>
                     </div>
                     <div className="field">
                         <label htmlFor="empresa">Tempo de empresa</label>
-                        <input type="text" id="empresa" placeholder="Tempo de empresa" 
+                        <input type="text" id="empresa" placeholder="Tempo de empresa" value={props.id !== undefined && props.id != null ? time : ''}
                             onChange={(e) => setTime(e.target.value)}/>
                     </div>
                     <div className="field">

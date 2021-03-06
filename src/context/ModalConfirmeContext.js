@@ -17,8 +17,14 @@ export default function ModalConfirmeProvider({children}) {
 
     useEffect(()=>{
         function  loadDatas() {
-            setNavers(response.data)
-            localStorage.setItem("navers", JSON.stringify(response.data))
+            if(!localStorage.getItem("navers")){
+                setNavers(response.data)
+                localStorage.setItem("navers", JSON.stringify(response.data)) 
+            }else{
+                let savedNavers = JSON.parse(localStorage.getItem("navers"))
+                setNavers(savedNavers)
+            }
+            
         }
 
         loadDatas()
