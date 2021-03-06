@@ -9,6 +9,7 @@ import Create from './pages/CreateNaver';
 import Edit from './pages/EditNaver';
 
 import ModalProvider from './context/ModalContext';
+import ModalConfirmeProvider from './context/ModalConfirmeContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -28,8 +29,10 @@ export default function Routes(){
         <BrowserRouter>
             <Switch>
                 <Route path="/" exact component={Login}/>
-                <PrivateRoute path="/home" exact component={Home}/>
                 <ModalProvider>
+                    <ModalConfirmeProvider>
+                        <PrivateRoute path="/home" exact component={Home}/>
+                    </ModalConfirmeProvider>
                    <PrivateRoute path="/create" exact component={Create}/>
                     <PrivateRoute path="/edit" exact component={Edit}/> 
                 </ModalProvider>

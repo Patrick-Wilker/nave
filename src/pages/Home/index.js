@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import { FaPen, FaTrash } from "react-icons/fa";
 import {Link, useHistory} from 'react-router-dom';
 
@@ -7,36 +7,31 @@ import ModalExcluir from '../../components/ModalExcluir';
 
 import {HomeContainer, Cards} from './styles';
 
-import {ModalConfirmeProvider} from '../../context/ModalConfirmeContext'
+import {ModalConfirmeContext} from '../../context/ModalConfirmeContext'
     
-import {response} from '../../services/navers'
-
 function Home(){
-    const [isOpenModalExcluir, setIsOpenModalExcluir] = useState(false)
-
-    const [navers, setNavers] = useState([])
+    const {
+        openModalConfirme,
+        closeModalConfirme,
+        isActiveModalConfirme,
+        removeNaver,
+        setId,
+        navers
+    } = useContext(ModalConfirmeContext)
 
     const history = useHistory()
-
-    useEffect(()=>{
-        function  loadDatas() {
-            setNavers(response.data)
-            localStorage.setItem("navers", JSON.stringify(response.data))
-        }
-
-        loadDatas()
-    }, [])
-
-    function closeModalExcluir(){
-        setIsOpenModalExcluir(false)
-    }
 
     function edit() {
         history.push('/edit')
     }
 
+    function openConfirme(id) {
+        openModalConfirme()
+        setId(id)
+    }
+
     return(
-        <ModalConfirmeProvider value={closeModalExcluir}>
+        <>
             <Header/>
             <HomeContainer>
                 <header>
@@ -56,7 +51,7 @@ function Home(){
                                     <p>{naver.name}</p>
                                     <span>{naver.job}</span>
                                     <div>
-                                        <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
+                                        <span className="remove" onClick={()=>{openConfirme(i)}}><FaTrash/></span>
                                         <span className="edit" onClick={edit}><FaPen/></span>
                                     </div>
                                 </li>
@@ -64,10 +59,9 @@ function Home(){
                         })
                     }
                 </Cards>
-                
+            {isActiveModalConfirme && <ModalExcluir close={closeModalConfirme} remove={removeNaver}/>}
             </HomeContainer>
-            {isOpenModalExcluir && <ModalExcluir/>}
-        </ModalConfirmeProvider>
+        </>
     )
 }
 
