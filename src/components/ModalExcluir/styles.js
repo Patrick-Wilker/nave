@@ -62,4 +62,16 @@ export const ModalExcluirBox = styled.div`
         background: var(--primary);
         color: #FFFFFF;
     }
+
+    @media(max-width: 450px){
+        div{
+            height: 50%;
+        }
+    }
+
+    @media(max-width: 410px){
+        div{
+            height: 35%;
+        }
+    }
 `
