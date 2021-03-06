@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { FaPen, FaTrash } from "react-icons/fa";
 import {Link, useHistory} from 'react-router-dom';
 
@@ -9,9 +9,23 @@ import {HomeContainer, Cards} from './styles';
 
 import {ModalConfirmeProvider} from '../../context/ModalConfirmeContext'
     
+import {response} from '../../services/navers'
+
 function Home(){
     const [isOpenModalExcluir, setIsOpenModalExcluir] = useState(false)
+
+    const [navers, setNavers] = useState([])
+
     const history = useHistory()
+
+    useEffect(()=>{
+        function  loadDatas() {
+            setNavers(response.data)
+            localStorage.setItem("navers", JSON.stringify(response.data))
+        }
+
+        loadDatas()
+    }, [])
 
     function closeModalExcluir(){
         setIsOpenModalExcluir(false)
@@ -34,42 +48,21 @@ function Home(){
                 </header>
 
                 <Cards>
-                    <li>
-                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Naver"/>
-                        <p>Juliano Reis</p>
-                        <span>Frontend Developer</span>
-                        <div>
-                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit" onClick={edit}><FaPen/></span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Naver"/>
-                        <p>Juliano Reis</p>
-                        <span>Frontend Developer</span>
-                        <div>
-                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit" onClick={edit}><FaPen/></span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Naver"/>
-                        <p>Juliano Reis</p>
-                        <span>Frontend Developer</span>
-                        <div>
-                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit" onClick={edit}><FaPen/></span>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="Naver"/>
-                        <p>Juliano Reis</p>
-                        <span>Frontend Developer</span>
-                        <div>
-                            <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit" onClick={edit}><FaPen/></span>
-                        </div>
-                    </li>
+                    {
+                        navers && navers.map((naver, i) => {
+                            return(
+                                <li key={i}>
+                                    <img src={naver.url} alt={naver.name}/>
+                                    <p>{naver.name}</p>
+                                    <span>{naver.job}</span>
+                                    <div>
+                                        <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
+                                        <span className="edit" onClick={edit}><FaPen/></span>
+                                    </div>
+                                </li>
+                            )
+                        })
+                    }
                 </Cards>
                 
             </HomeContainer>
