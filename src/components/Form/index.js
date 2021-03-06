@@ -1,15 +1,13 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
 
 import {FormContainer} from './styles'
 
 import {ModalContext} from '../../context/ModalContext'
-import Modal from '../../components/Modal';
-import { Link } from 'react-router-dom';
 
 function Form(props){
     const {
         open,
-        close,
         isActiveModal
     } = useContext(ModalContext)
 
@@ -59,7 +57,7 @@ function Form(props){
                     <button type="button">Salvar</button>
                 </div>
             </form>
-            {isActiveModal && <Modal title="Naver criado" text="Naver criado com sucesso!" close={close}/>}
+            {isActiveModal && props.children}
         </FormContainer>
     )
 }

@@ -81,6 +81,10 @@ export const Cards = styled.div`
         margin-top: 8px;
     }
 
+    li > div > span{
+        cursor: pointer;
+    }
+
     li > div > span + span{
         margin-left: 15px;
     }

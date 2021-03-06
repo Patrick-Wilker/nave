@@ -49,7 +49,7 @@ function Home(){
                         <span>Frontend Developer</span>
                         <div>
                             <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit"><FaPen/></span>
+                            <span className="edit" onClick={edit}><FaPen/></span>
                         </div>
                     </li>
                     <li>
@@ -58,7 +58,7 @@ function Home(){
                         <span>Frontend Developer</span>
                         <div>
                             <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit"><FaPen/></span>
+                            <span className="edit" onClick={edit}><FaPen/></span>
                         </div>
                     </li>
                     <li>
@@ -67,7 +67,7 @@ function Home(){
                         <span>Frontend Developer</span>
                         <div>
                             <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit"><FaPen/></span>
+                            <span className="edit" onClick={edit}><FaPen/></span>
                         </div>
                     </li>
                 </Cards>

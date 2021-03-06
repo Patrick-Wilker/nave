@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import Header from '../../components/Header';
 import Form from '../../components/Form';
+import { ModalContext } from '../../context/ModalContext';
+import Modal from '../../components/Modal';
 
 function Edit(){
+    const {
+        close
+    } = useContext(ModalContext)
 
     return(
         <>
             <Header/>
             <div>
-                <Form title="Editar Naver" />
+                <Form title="Editar Naver">
+                    <Modal title="Naver atualizado" text="Naver atualizado com sucesso!" close={close}/>
+                </Form>
             </div>
         </>
     )
