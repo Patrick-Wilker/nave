@@ -4,13 +4,13 @@ export const FormContainer = styled.div`
     display: flex;
     justify-content: center;
 
-    header {
+    form > header {
         color: var(--primary);
         display: flex;
         align-items: center;
         margin-bottom: 30px;
     }
-    header h1{
+    form > header h1{
         font-style: normal;
         font-weight: 600;
         font-size: 24px;

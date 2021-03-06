@@ -8,6 +8,8 @@ import ModalExcluir from '../../components/ModalExcluir';
 import {HomeContainer, Cards} from './styles';
 
 import {ModalConfirmeContext} from '../../context/ModalConfirmeContext'
+import { ModalContext } from '../../context/ModalContext';
+import Modal from '../../components/Modal';
     
 function Home(){
     const {
@@ -18,6 +20,11 @@ function Home(){
         setId,
         navers
     } = useContext(ModalConfirmeContext)
+
+    const {
+        isActiveModal,
+        close
+    } = useContext(ModalContext)
 
     const history = useHistory()
 
@@ -60,6 +67,8 @@ function Home(){
                     }
                 </Cards>
             {isActiveModalConfirme && <ModalExcluir close={closeModalConfirme} remove={removeNaver}/>}
+            {isActiveModal && <Modal title="Naver excluído" text="Naver excluído com sucesso!" close={close}/>}
+
             </HomeContainer>
         </>
     )

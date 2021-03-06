@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-import Modal from '../components/Modal'
-
 import {response} from '../services/navers'
 import { ModalContext } from './ModalContext'
 
@@ -9,9 +7,7 @@ export const ModalConfirmeContext = createContext({})
 
 export default function ModalConfirmeProvider({children}) {
     const {
-        isActiveModal,
         open,
-        close
     } = useContext(ModalContext)
 
     const [isActiveModalConfirme, setIsActiveModalConfirme] = useState(false)
@@ -61,11 +57,12 @@ export default function ModalConfirmeProvider({children}) {
                 removeNaver,
                 setId,
                 navers,
-                setNavers
+                setNavers,
+
+                updateDatas
             }}
         >
             {children}
-            {isActiveModal && <Modal title="Naver excluído" text="Naver excluído com sucesso!" close={close}/>}
         </ModalConfirmeContext.Provider>
     )
 }

@@ -32,9 +32,11 @@ export default function Routes(){
                 <ModalProvider>
                     <ModalConfirmeProvider>
                         <PrivateRoute path="/home" exact component={Home}/>
+                        
+                        <PrivateRoute path="/create" exact component={Create}/>
+                        <PrivateRoute path="/edit" exact component={Edit}/> 
                     </ModalConfirmeProvider>
-                   <PrivateRoute path="/create" exact component={Create}/>
-                    <PrivateRoute path="/edit" exact component={Edit}/> 
+                    
                 </ModalProvider>
                 
             </Switch>
