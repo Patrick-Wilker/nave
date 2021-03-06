@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { FaPen, FaTrash } from "react-icons/fa";
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 import Header from '../../components/Header';
 import ModalExcluir from '../../components/ModalExcluir';
@@ -11,9 +11,14 @@ import {ModalConfirmeProvider} from '../../context/ModalConfirmeContext'
     
 function Home(){
     const [isOpenModalExcluir, setIsOpenModalExcluir] = useState(false)
+    const history = useHistory()
 
     function closeModalExcluir(){
         setIsOpenModalExcluir(false)
+    }
+
+    function edit() {
+        history.push('/edit')
     }
 
     return(
@@ -35,7 +40,7 @@ function Home(){
                         <span>Frontend Developer</span>
                         <div>
                             <span className="remove" onClick={() => setIsOpenModalExcluir(true)}><FaTrash/></span>
-                            <span className="edit"><FaPen/></span>
+                            <span className="edit" onClick={edit}><FaPen/></span>
                         </div>
                     </li>
                     <li>

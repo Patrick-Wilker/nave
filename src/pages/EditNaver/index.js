@@ -3,16 +3,16 @@ import React from 'react'
 import Header from '../../components/Header';
 import Form from '../../components/Form';
 
-function Create(){
+function Edit(){
 
     return(
         <>
             <Header/>
             <div>
-                <Form title="Adicionar Naver"/>
+                <Form title="Editar Naver" />
             </div>
         </>
     )
 }
 
-export default Create
+export default Edit

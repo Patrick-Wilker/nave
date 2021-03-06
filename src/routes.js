@@ -5,7 +5,10 @@ import { isAuthenticated } from "./services/auth";
 
 import Login from './pages/Login';
 import Home from './pages/Home';
-import CreateNaver from './pages/CreateNaver';
+import Create from './pages/CreateNaver';
+import Edit from './pages/EditNaver';
+
+import ModalProvider from './context/ModalContext';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
@@ -26,7 +29,11 @@ export default function Routes(){
             <Switch>
                 <Route path="/" exact component={Login}/>
                 <PrivateRoute path="/home" exact component={Home}/>
-                <PrivateRoute path="/create" exact component={CreateNaver}/>
+                <ModalProvider>
+                   <PrivateRoute path="/create" exact component={Create}/>
+                    <PrivateRoute path="/edit" exact component={Edit}/> 
+                </ModalProvider>
+                
             </Switch>
         </BrowserRouter>
     );

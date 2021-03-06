@@ -1,7 +1,30 @@
-import React from 'react'
+import React, { createContext, useState } from 'react'
 
-const ModalContext = React.createContext({})
+export const ModalContext = createContext({})
 
-export const ModalProvider = ModalContext.Provider
+export default function ModalProvider({children}){
+    const [isActiveModal, setIsActiveModal] = useState(false)
 
-export default ModalContext
+    function open() {
+        setIsActiveModal(true)
+    }
+
+    function close() {
+        setIsActiveModal(false)
+    }
+
+    return (
+        <ModalContext.Provider
+            value={{
+                open,
+                close, 
+                isActiveModal
+            }}
+        >
+            {children}
+        </ModalContext.Provider>
+    )
+} 
+
+
+

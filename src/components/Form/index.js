@@ -1,25 +1,31 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 
 import {FormContainer} from './styles'
 
-import {ModalProvider} from '../../context/ModalContext'
+import {ModalContext} from '../../context/ModalContext'
 import Modal from '../../components/Modal';
+import { Link } from 'react-router-dom';
 
 function Form(props){
-    const [isOpenModal, setIsOpenModal] = useState(false)
+    const {
+        open,
+        close,
+        isActiveModal
+    } = useContext(ModalContext)
 
-    function closeModal(){
-        setIsOpenModal(false)
+    function salvar() {
+        open()
     }
 
     return(
-        <ModalProvider value={closeModal}> 
         <FormContainer>
             <form>
                 <header>
-                    <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.51 1.86998L10.73 0.0999756L0.839996 9.99998L10.74 19.9L12.51 18.13L4.38 9.99998L12.51 1.86998Z" fill="black"/>
-                    </svg>                        
+                    <Link to="/home">
+                        <svg width="13" height="20" viewBox="0 0 13 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.51 1.86998L10.73 0.0999756L0.839996 9.99998L10.74 19.9L12.51 18.13L4.38 9.99998L12.51 1.86998Z" fill="black"/>
+                        </svg>   
+                    </Link>
 
                     <h1>{props.title}</h1>
                 </header>
@@ -49,14 +55,12 @@ function Form(props){
                         <input type="text" id="url" placeholder="URL da foto da Naver"/>
                     </div>
                 </div>
-                <div className="salvar" onClick={() => setIsOpenModal(true)}>
+                <div className="salvar" onClick={()=> salvar()}>
                     <button type="button">Salvar</button>
                 </div>
             </form>
-
+            {isActiveModal && <Modal title="Naver criado" text="Naver criado com sucesso!" close={close}/>}
         </FormContainer>
-        {isOpenModal && <Modal title="Naver criado" text="Naver criado com sucesso!" closeModal={closeModal} />}
-        </ModalProvider>
     )
 }
 
