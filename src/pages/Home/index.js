@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import { FaPen, FaTrash } from "react-icons/fa";
 import {Link, useHistory} from 'react-router-dom';
 
@@ -10,6 +10,8 @@ import {HomeContainer, Cards} from './styles';
 import {ModalConfirmeContext} from '../../context/ModalConfirmeContext'
 import { ModalContext } from '../../context/ModalContext';
 import Modal from '../../components/Modal';
+
+import Visualizar from '../../components/Visualizar';
     
 function Home(){
     const {
@@ -26,6 +28,9 @@ function Home(){
         close
     } = useContext(ModalContext)
 
+    const [isVisualizarModal, setIsVisualizarModal] = useState(false)
+    const [idVisualizar, setIdVisualizar] = useState()
+
     const history = useHistory()
 
     function edit(id) {
@@ -35,6 +40,11 @@ function Home(){
     function openConfirme(id) {
         openModalConfirme()
         setId(id)
+    }
+
+    function visualizar(id){
+        setIsVisualizarModal(true)
+        setIdVisualizar(id)
     }
 
     return(
@@ -54,7 +64,7 @@ function Home(){
                         navers && navers.map((naver, i) => {
                             return(
                                 <li key={i}>
-                                    <img src={naver.url} alt={naver.name}/>
+                                    <img src={naver.url} alt={naver.name} onClick={()=>{visualizar(i)}}/>
                                     <p>{naver.name}</p>
                                     <span>{naver.job}</span>
                                     <div>
@@ -69,6 +79,7 @@ function Home(){
             {isActiveModalConfirme && <ModalExcluir close={closeModalConfirme} remove={removeNaver}/>}
             {isActiveModal && <Modal title="Naver excluído" text="Naver excluído com sucesso!" close={close}/>}
 
+            {isVisualizarModal && <Visualizar id={idVisualizar} navers={navers} close={setIsVisualizarModal} edit={edit} openConfirme={openConfirme}  />}
             </HomeContainer>
         </>
     )
