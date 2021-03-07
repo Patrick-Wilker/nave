@@ -1,15 +1,63 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { login } from '../../services/auth'
 import {useHistory} from 'react-router-dom';
+import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 import {LoginContainer, LoginBox, Logo, Fields} from './styles'
 
 function Login(){
     const history = useHistory();
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     
-    function entrar(){
-        login('token')
-        history.push('/home')
+    useEffect(()=>{
+        function redirectsIfAuthenticated(){
+            const token = localStorage.getItem("token")
+
+            if(token){
+                history.push('/home')
+            }
+        }
+
+        redirectsIfAuthenticated()
+    }, [history])
+
+    async function validation(event){
+        event.preventDefault()
+
+        const validation = {
+            email: email, password: password
+        }
+
+        const schema = Yup.object().shape({
+            email: Yup
+                .string()
+                .email('Informe um e-mail válido')
+                .required('Email é obrigatório'),
+            password: Yup
+                .string()
+                .min(8, 'Quantidade mínima de caracteres é 8')
+                .required('Senha é obrigatório'), 
+        });
+
+        try {
+            await schema.validate(validation, { abortEarly: false });
+
+            login('token')
+            history.push('/home')
+
+            setEmail('')
+            setPassword('')
+            
+        } catch(err){
+            err.errors && err.errors.map(e => {
+                return(
+                   toast.dark(e)  
+                )
+            })
+        }
     }
 
     return (
@@ -29,18 +77,18 @@ function Login(){
                     </svg>
                 </Logo>
 
-                <form>
+                <form onSubmit={validation}>
                     <Fields>
                         <div className="field">
                             <label htmlFor="email">E-mail</label>
-                            <input id="email "type="email" placeholder="E-mail"/>
+                            <input id="email "type="text" placeholder="E-mail" onChange={(e)=>{setEmail(e.target.value)}}/>
                         </div>
                         <div className="field">
                             <label htmlFor="senha">Senha</label>
-                            <input id="senha" type="password" placeholder="Senha"/>
+                            <input id="senha" type="password" placeholder="Senha" onChange={(e)=>{setPassword(e.target.value)}}/>
                         </div>
                         <div className="field">
-                            <button type="button" onClick={entrar}>Entrar</button>
+                            <button type="submit">Entrar</button>
                         </div>
                     </Fields>
                 </form>
