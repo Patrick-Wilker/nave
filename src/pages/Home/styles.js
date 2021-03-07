@@ -40,7 +40,7 @@ export const HomeContainer = styled.div`
 export const Cards = styled.div`
     margin-top: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     gap: 10px;
     row-gap: 30px;
