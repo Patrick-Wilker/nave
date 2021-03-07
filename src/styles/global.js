@@ -9,6 +9,8 @@ const GlobalStyle = createGlobalStyle`
     }
     html, body, #root{
         min-height: 100%;
+        max-width: 1440px;
+        margin: 0 auto;
     }
     body{
         background: #FFFFFF;
