@@ -28,18 +28,12 @@ function Form(props){
 
     useEffect(()=>{
         function edit(){
-            if(props.id){
-                for(let i = 0; i <= props.id; i++){
-                    if(String(i) === props.id){
-                        setName(navers[i].name)
-                        setJob(navers[i].job)
-                        setAge(navers[i].age)
-                        setTime(navers[i].time)
-                        setProjects(navers[i].projects)
-                        setUrl(navers[i].url)
-                    }
-                }
-            }
+            setName(navers[props.id].name)
+            setJob(navers[props.id].job)
+            setAge(navers[props.id].age)
+            setTime(navers[props.id].time)
+            setProjects(navers[props.id].projects)
+            setUrl(navers[props.id].url)
         }
 
         edit()
