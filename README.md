@@ -4,6 +4,8 @@
 
 Trata-se de um sistema de cadastro, edição e remoção de usuários.
 
+Você pode acessar o site por [aqui](https://thenavers.netlify.app/).
+
 <h2>Como rodar o projeto</h2>
 
 <h3>Instalando dependências</h3>
